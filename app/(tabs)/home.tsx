@@ -13,13 +13,14 @@ import SearchInput from "@/components/SearchInput";
 import Treading from "@/components/Treading";
 import EmptyState from "@/components/EmptyState";
 import { useAppWrite } from "@/lib/useAppWrite";
-import { getAllPosts } from "@/lib/appwrite";
+import { getAllPosts, getLatestPosts } from "@/lib/appwrite";
 import { videoType } from "@/shared/type";
 import VideoCard from "@/components/VideoCard";
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
   const { data: posts, isLoading, search, refresh } = useAppWrite(getAllPosts);
+  const { data: latestPost } = useAppWrite(getLatestPosts);
 
   const onRefresh = async () => {
     // recall video if new video append
@@ -58,23 +59,11 @@ const Home = () => {
             </View>
 
             {/* search */}
-            <SearchInput value={search} handleChangeText={() => 2 + 2} />
+            <SearchInput />
 
             <View className="w-full flex-1 pt-5 pb-8">
               <Text className="text-gray-100">Latest Videos</Text>
-              <Treading
-                posts={[
-                  {
-                    id: 1,
-                  },
-                  {
-                    id: 2,
-                  },
-                  {
-                    id: 3,
-                  },
-                ]}
-              />
+              <Treading posts={latestPost} />
             </View>
           </View>
         )}

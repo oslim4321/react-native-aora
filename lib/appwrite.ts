@@ -105,3 +105,49 @@ export const getAllPosts = async () => {
     throw new Error(error as any);
   }
 };
+
+export const getLatestPosts = async () => {
+  try {
+    const posts = await databases.listDocuments(
+      databaseId,
+      videoCollectionId,
+
+      [Query.orderDesc("$createdAt"), Query.limit(7)]
+    );
+
+    if (!posts) throw Error;
+    return posts.documents;
+  } catch (error) {
+    throw new Error(error as any);
+  }
+};
+
+export const searchPosts = async (query: string) => {
+  try {
+    const posts = await databases.listDocuments(
+      databaseId,
+      videoCollectionId,
+
+      [Query.search("title", query)]
+    );
+
+    return posts.documents;
+  } catch (error) {
+    throw new Error(error as any);
+  }
+};
+
+export const getUserPosts = async (id: string) => {
+  try {
+    const posts = await databases.listDocuments(
+      databaseId,
+      videoCollectionId,
+
+      [Query.equal("creator", id)]
+    );
+
+    return posts.documents;
+  } catch (error) {
+    throw new Error(error as any);
+  }
+};

@@ -29,4 +29,5 @@ export type videoType = {
   thumbnail: string;
   title: string;
   video: string;
+  key?: string;
 };

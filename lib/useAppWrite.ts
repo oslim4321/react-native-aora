@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { getAllPosts } from "./appwrite";
 
 export const useAppWrite = (fn: any) => {
   const [search, setSearch] = useState("");
